@@ -16,7 +16,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - run: rustup toolchain install stable --profile minimal --component rustfmt,clippy
       - run: cargo +stable fmt --all --check
       - run: cargo +stable clippy --workspace --all-targets --locked -- -D warnings
@@ -29,6 +29,6 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - run: rustup toolchain install stable --profile minimal
       - run: cargo +stable test --workspace --locked
