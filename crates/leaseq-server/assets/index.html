@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+  <meta name="color-scheme" content="light dark">
+  <title>leaseq · Job queues</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="masthead">
+    <div>
+      <p class="eyebrow">QUEUE OPERATIONS</p>
+      <h1>leaseq<span class="brand-dot" aria-hidden="true">.</span></h1>
+      <p class="subtitle">Your jobs, in motion.</p>
+    </div>
+    <div class="header-tools">
+      <p id="connection" class="connection" role="status">Connecting…</p>
+      <div>
+        <label for="theme">Appearance</label>
+        <select id="theme">
+          <option value="system">System</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <noscript>This panel requires JavaScript to connect to the queue API.</noscript>
+    <section class="panel queues-panel" aria-labelledby="queues-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">01 / OVERVIEW</p>
+          <h2 id="queues-title">Queues</h2>
+        </div>
+        <p class="muted">Counts update live</p>
+      </div>
+      <p id="queue-status" role="status">Waiting for queue statistics…</p>
+      <div class="table-scroll" role="region" aria-label="Queue statistics" tabindex="0">
+        <table>
+          <caption class="sr-only">Select a queue to inspect its jobs.</caption>
+          <thead>
+            <tr>
+              <th scope="col">Queue</th>
+              <th scope="col">Ready</th>
+              <th scope="col">Delayed</th>
+              <th scope="col">Leased</th>
+              <th scope="col">Dead</th>
+              <th scope="col">Completed</th>
+            </tr>
+          </thead>
+          <tbody id="queues"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <div class="workspace">
+      <section id="job-panel" class="panel" aria-labelledby="jobs-title">
+        <p class="eyebrow">02 / INSPECT</p>
+        <h2 id="jobs-title" tabindex="-1">Jobs</h2>
+        <div id="job-controls" class="job-controls" hidden>
+          <div>
+            <label for="state">Job state</label>
+            <select id="state">
+              <option value="ready">Ready</option>
+              <option value="delayed">Delayed</option>
+              <option value="leased">Leased</option>
+              <option value="dead">Dead</option>
+            </select>
+          </div>
+          <button id="refresh" type="button">Refresh</button>
+        </div>
+        <p id="job-status" role="status">Select a queue to view its jobs.</p>
+        <p id="action-status" role="status" aria-atomic="true"></p>
+        <div id="jobs" aria-busy="false"></div>
+      </section>
+
+      <section class="panel compose-panel" aria-labelledby="submit-title">
+        <p class="eyebrow">03 / CREATE</p>
+        <h2 id="submit-title">Submit a job</h2>
+        <p class="muted">All fields are required.</p>
+        <form id="submit-form" method="post" action="/" aria-labelledby="submit-title">
+          <div class="field">
+            <label for="queue">Queue name</label>
+            <p id="queue-hint" class="hint">1–64 ASCII letters, digits, dots, underscores or hyphens.</p>
+            <input id="queue" name="queue" required minlength="1" maxlength="64"
+              pattern="[A-Za-z0-9._\-]{1,64}" autocomplete="off" autocapitalize="none"
+              spellcheck="false" aria-describedby="queue-hint" aria-invalid="false">
+          </div>
+          <div class="field">
+            <label for="payload">Payload JSON</label>
+            <p id="payload-hint" class="hint">Any valid JSON, including arrays, strings, numbers and null.</p>
+            <textarea id="payload" name="payload" rows="7" required spellcheck="false"
+              autocapitalize="none" aria-describedby="payload-hint" aria-invalid="false">{}</textarea>
+          </div>
+          <div class="numeric-fields">
+            <div class="field">
+              <label for="priority">Priority · 0–9</label>
+              <input id="priority" name="priority" type="number" min="0" max="9"
+                step="1" value="4" required aria-invalid="false">
+            </div>
+            <div class="field">
+              <label for="max_attempts">Attempts · 1–100</label>
+              <input id="max_attempts" name="max_attempts" type="number" min="1" max="100"
+                step="1" value="3" required aria-invalid="false">
+            </div>
+          </div>
+          <div class="field">
+            <label for="delay_ms">Delay in milliseconds</label>
+            <input id="delay_ms" name="delay_ms" type="number" min="0"
+              max="9007199254740991" step="1" value="0" required aria-invalid="false">
+          </div>
+          <button id="submit-job" class="primary" type="submit">Submit job</button>
+          <p id="submit-status" role="status" aria-atomic="true"></p>
+        </form>
+      </section>
+    </div>
+  </main>
+  <footer>leaseq / Rust job queue control panel</footer>
+</body>
+</html>

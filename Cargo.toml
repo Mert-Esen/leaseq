@@ -1,0 +1,37 @@
+[workspace]
+resolver = "3"
+members = ["crates/*"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+publish = false
+
+[workspace.dependencies]
+leaseq-wal = { path = "crates/leaseq-wal" }
+leaseq-core = { path = "crates/leaseq-core" }
+leaseq-engine = { path = "crates/leaseq-engine" }
+leaseq-proto = { path = "crates/leaseq-proto" }
+leaseq-server = { path = "crates/leaseq-server" }
+leaseq-client = { path = "crates/leaseq-client" }
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+missing_debug_implementations = "warn"
+unreachable_pub = "warn"
+
+[workspace.lints.clippy]
+all = { level = "warn", priority = -1 }
+pedantic = { level = "warn", priority = -1 }
+# Opinionated pedantic lints that add noise here.
+module_name_repetitions = "allow"
+missing_errors_doc = "allow"
+missing_panics_doc = "allow"
+must_use_candidate = "allow"
+assert_is_empty = "allow"
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+strip = true

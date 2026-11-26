@@ -1,0 +1,24 @@
+[package]
+name = "leaseq-server"
+description = "HTTP API and web dashboard for the leaseq engine."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+axum = { version = "0.8.9", features = ["macros"] }
+futures-util = "0.3.34"
+leaseq-engine.workspace = true
+leaseq-proto.workspace = true
+serde = "1.0.229"
+tokio = { version = "1.54.1", features = ["macros", "net", "time"] }
+tokio-util = "0.7.20"
+
+[dev-dependencies]
+leaseq-client.workspace = true
+tempfile = "3.27.0"
+tokio = { version = "1.54.1", features = ["macros", "rt-multi-thread", "io-util"] }
+
+[lints]
+workspace = true

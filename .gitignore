@@ -1,0 +1,12 @@
+/target/
+# Queue data directories
+/data/
+*.log
+# Local configuration and secrets
+.env
+.env.*
+# Editors and operating systems
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,165 @@
+:root {
+  color-scheme: light;
+  --bg: #f4f5f1;
+  --surface: #ffffff;
+  --inset: #f1f3ee;
+  --text: #19251e;
+  --muted: #536158;
+  --line: #ccd3cb;
+  --control-line: #79877b;
+  --accent: #22663d;
+  --accent-soft: #e5f0df;
+  --on-accent: #ffffff;
+  --error: #ad2532;
+  --focus: #2563eb;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #101713;
+  --surface: #18221b;
+  --inset: #111a14;
+  --text: #e8efe6;
+  --muted: #b3c0b3;
+  --line: #3c4b40;
+  --control-line: #809483;
+  --accent: #a9db8b;
+  --accent-soft: #2b402b;
+  --on-accent: #152211;
+  --error: #ff9da6;
+  --focus: #94baff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    color-scheme: dark;
+    --bg: #101713;
+    --surface: #18221b;
+    --inset: #111a14;
+    --text: #e8efe6;
+    --muted: #b3c0b3;
+    --line: #3c4b40;
+    --control-line: #809483;
+    --accent: #a9db8b;
+    --accent-soft: #2b402b;
+    --on-accent: #152211;
+    --error: #ff9da6;
+    --focus: #94baff;
+  }
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.5;
+}
+.masthead, main, footer {
+  width: min(100% - 3rem, 88rem);
+  margin-inline: auto;
+}
+.masthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  padding-block: 2.5rem 2rem;
+}
+h1, h2, h3, h4, p { margin-block: 0; }
+h1 { font-size: clamp(2.5rem, 6vw, 3.6rem); letter-spacing: -.07em; line-height: 1.1; }
+h2 { font-size: 1.45rem; letter-spacing: -.035em; margin-block-end: 1rem; overflow-wrap: anywhere; }
+h3 { font-size: 1.1rem; }
+h4 { font-size: .85rem; margin-block: 1rem .4rem; }
+.brand-dot { color: var(--accent); }
+.eyebrow { color: var(--muted); font-size: .7rem; letter-spacing: .14em; font-weight: 700; margin-block-end: .65rem; }
+.subtitle, .muted, .hint, footer { color: var(--muted); }
+.subtitle { margin-block-start: .6rem; }
+.header-tools { display: flex; align-items: center; gap: 1.5rem; }
+.connection {
+  border: 1px solid var(--line);
+  background: var(--accent-soft);
+  border-radius: 2rem;
+  padding: .45rem .9rem;
+  font-size: .85rem;
+  font-weight: 650;
+}
+.panel {
+  padding: 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  min-width: 0;
+}
+.section-heading { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+.section-heading h2 { margin-block-end: 0; }
+#queue-status, #job-status { color: var(--muted); margin-block: 1rem; }
+.workspace { display: grid; grid-template-columns: minmax(0, 1fr) minmax(19rem, .65fr); gap: 1.5rem; margin-block-start: 1.5rem; align-items: start; }
+.table-scroll { overflow-x: auto; margin-block-start: 1rem; }
+table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+th, td { border-block-end: 1px solid var(--line); padding: .8rem .7rem; text-align: end; white-space: nowrap; }
+thead th { color: var(--muted); font-size: .8rem; font-weight: 600; }
+th:first-child { text-align: start; }
+tbody tr:last-child > * { border-block-end: 0; }
+button, input, select, textarea { font: inherit; font-size: 1rem; }
+button, input, select, textarea {
+  min-height: 3rem;
+  border: 1px solid var(--control-line);
+  border-radius: .5rem;
+  color: var(--text);
+  background: var(--surface);
+}
+button { padding: .65rem 1rem; cursor: pointer; font-weight: 650; }
+button:hover { background: var(--accent-soft); }
+button:disabled { cursor: wait; opacity: .65; }
+/* Names stay on one line; the table scrolls and long names are clipped. */
+.queue-button { display: block; text-align: start; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 18rem; }
+.queue-button[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); box-shadow: inset .2rem 0 var(--accent); }
+label { display: block; font-size: .875rem; font-weight: 650; margin-block-end: .4rem; }
+input, select, textarea { padding: .65rem .75rem; }
+input, textarea { width: 100%; }
+textarea { resize: vertical; font-family: ui-monospace, monospace; line-height: 1.5; }
+.field { margin-block: 1.2rem; }
+.hint { font-size: .8rem; margin-block: .2rem .5rem; }
+.numeric-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.numeric-fields .field { margin-block-end: 0; }
+.primary { width: 100%; background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.primary:hover { background: var(--accent); filter: brightness(.92); }
+.job-controls { display: flex; align-items: end; gap: .75rem; flex-wrap: wrap; }
+.job-controls select { min-width: 10rem; }
+.job { border-block-start: 1px solid var(--line); padding-block: 1.25rem; }
+.job p { color: var(--muted); margin-block-start: .4rem; overflow-wrap: anywhere; }
+.job button { margin-block-start: 1rem; }
+pre {
+  margin: 0;
+  padding: .85rem;
+  border: 1px solid var(--line);
+  border-radius: .5rem;
+  background: var(--inset);
+  font: .85rem/1.6 ui-monospace, SFMono-Regular, Consolas, monospace;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+#submit-status, #action-status { overflow-wrap: anywhere; }
+#submit-status:not(:empty), #action-status:not(:empty) { margin-block: 1rem; }
+:is(input, textarea):user-invalid { border-color: var(--error); }
+:is(input, textarea)[aria-invalid="true"] { border-color: var(--error); }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+footer { padding-block: 1.5rem 2rem; font-size: .8rem; }
+[hidden] { display: none !important; }
+.skip-link { position: fixed; inset-block-start: .5rem; inset-inline-start: .5rem; transform: translateY(-200%); background: var(--surface); color: var(--text); padding: .8rem; z-index: 10; }
+.skip-link:focus { transform: none; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+
+@media (max-width: 52rem) {
+  .workspace { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 35rem) {
+  .masthead, main, footer { width: calc(100% - 1.5rem); }
+  .masthead { align-items: start; flex-direction: column; gap: 1.25rem; padding-block-start: 1.5rem; }
+  .header-tools { width: 100%; justify-content: space-between; }
+  .panel { padding: 1rem; }
+  .section-heading { align-items: start; flex-direction: column; gap: .5rem; }
+  .numeric-fields { grid-template-columns: 1fr; gap: 0; }
+}

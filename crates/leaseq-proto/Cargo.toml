@@ -1,0 +1,15 @@
+[package]
+name = "leaseq-proto"
+description = "Wire types of the leaseq HTTP API, shared by server and client."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+leaseq-core.workspace = true
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = { version = "1.0.154", features = ["raw_value"] }
+
+[lints]
+workspace = true
